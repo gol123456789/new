@@ -1,0 +1,30 @@
+<?php $loopLimit = $this->getCount(); ?>
+<?php ?>
+<div class="configDump">
+    <h3> Config Reads <?php echo $loopLimit ?></h3>
+   <div class="hideshowall"><span class="hideall">hide</span>/<span class="showall">show</span></div>
+    <?php for ($index = 0; $index < $loopLimit; $index++) :?>
+    <?php $resultString = $this->_result[$index][1]?>
+        <?php $result = $this->_result[$index][0]?>
+
+         <li>
+             <h5><?echo $index ?></h5>
+             <p><strong><?php echo $resultString ?></strong> : : <span><strong><?php echo$result ?></strong></span></p>
+             <div class ="hideshow">show stack >> </div>
+             <div class="stack">
+                 <?php $stackArr = $this->_stack[$index]?>
+                 <?php foreach ($stackArr as $call): ?>
+     <?php if (count($call) === 6): ?>
+<?php  echo $call['class']; echo '::'; echo $call['function']?>
+     <?php endif ?>
+<br/>
+<?php endforeach ?>
+                 
+                 
+                 
+             </div>
+             
+         </li>
+    <?php endfor;?>
+    </div>
+

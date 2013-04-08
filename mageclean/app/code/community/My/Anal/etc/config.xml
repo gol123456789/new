@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+	<modules>
+		<My_Anal>
+			<version>0.0.1</version>
+                </My_Anal>
+	</modules>
+
+	<global>
+		<blocks>
+			<myanal>
+				<class>My_Anal_Block</class>
+			</myanal>
+		</blocks>
+		<models>
+			<myanal>
+				<class>My_Anal_Model</class>
+                                <resourceModel>myanal_resource</resourceModel>
+			</myanal>
+                        <myanal_resource>
+                            <class>My_Anal_Model_Resource</class>
+                            <entities>
+                                <bla>
+                                    <table>bla</table>
+                                </bla>
+                            </entities>
+                        </myanal_resource>
+		</models>
+		<helpers>
+			<my_anal><class>My_Anal_Helper</class></my_anal>
+                        <myanal><class>My_Anal_Helper</class></myanal>
+                </helpers>
+	</global>
+
+	<frontend>
+		<layout>
+			<updates>
+				<aoestatic>
+					<file>aoestatic/aoestatic.xml</file>
+				</aoestatic>
+			</updates>
+		</layout>
+		<routers>
+			<myanal>
+				<use>standard</use>
+				<args>
+					<module>My_Anal</module>
+					<frontName>anal</frontName>
+				</args>
+			</myanal>
+		</routers>
+
+		<events>
+
+			<!-- Setting the response headers to control varnish -->
+			
+
+		</events>
+
+	</frontend>
+        <adminhtml>
+            
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <my_anal translate="title" module="mgt_developertoolbar">
+                                            <title>analytics</title>
+                                        </my_anal>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                   </children>
+                </admin>
+            </resources>
+        </acl>
+           </adminhtml>
+</config>

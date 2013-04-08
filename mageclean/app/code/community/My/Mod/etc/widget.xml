@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ */
+-->
+<widgets>
+    <asimpleEvent type="myanal/widget_simple" translate="name description" module="myanal">
+        <name>mod simple event</name>
+        <description>fire a simple analytics event on user interaction</description>
+        <is_email_compatible>1</is_email_compatible>
+        <parameters>
+            <class_name translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value></value>
+                <label>class name on dom element</label>
+                <type>text</type>
+            </class_name>
+            <allowMultiple translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value></value>
+                <label>repeating event</label>
+                <type>select</type>
+                <value>0</value>
+                <values>
+                    <default translate="label">
+                        <value>1</value>
+                        <label>yes</label>
+                    </default>
+                    <list translate="label">
+                        <value>0</value>
+                        <label>no</label>
+                    </list>
+                </values>
+            </allowMultiple>
+            <eventType translate="label">
+                <required>1</required>
+                <description>user interaction you want to track</description>
+                <visible>1</visible>
+                <value></value>
+                <label>event type</label>
+                <type>select</type>
+                <value>click</value>
+                <values>
+                    <default translate="label">
+                        <value>click</value>
+                        <label>click</label>
+                    </default>
+                    <hover translate="label">
+                        <value>hover</value>
+                        <label>hover</label>
+                    </hover>
+                </values>
+            </eventType>
+               <block_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Block</label>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/cms_block_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Block...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>20</sort_order>
+            </block_id>
+             <eventName translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value></value>
+                <label>event type</label>
+                <type>text</type>
+                <value>click</value>
+                
+            </eventName>
+             <eventLabel translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value></value>
+                <label>event type</label>
+                <type>text</type>
+                <value>click</value>
+                
+            </eventLabel>
+            <template>
+                <required>1</required>
+                <visible>0</visible>
+                <label>Template</label>
+                <type>select</type>
+                <value>simple.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>anal/widget/simple.phtml</value>
+                        <label>normal render</label>
+                    </default>
+                    <list translate="label">
+                        <value>anal/widget/simple.phtml</value>
+                        <label>dif node same template</label>
+                    </list>
+                </values>
+            </template>
+            <cache_lifetime translate="label description">
+                <label>Cache Lifetime (Seconds)</label>
+                <description>86400 by default, if not set. To refresh instantly, Clear the Blocks HTML Output Cache.</description>
+                <visible>1</visible>
+                <type>text</type>
+            </cache_lifetime>
+        </parameters>
+    </asimpleEvent>
+    <acms_page_link type="mymod/widget_page_link" translate="name description" module="mymod">
+        <name>CMS Page Linksss</name>
+        <description>Link to a CMS Page</description>
+        <is_email_compatible>1</is_email_compatible>
+        <parameters>
+            <page_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>CMS Page</label>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/cms_page_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Page...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </page_id>
+            <anchor_text translate="label description">
+                <visible>1</visible>
+                <label>Anchor Custom Text</label>
+                <description>If empty, the Page Title will be used</description>
+                <type>text</type>
+            </anchor_text>
+            <title translate="label">
+                <visible>1</visible>
+                <label>Anchor Custom Title</label>
+                <type>text</type>
+            </title>
+            <template translate="label">
+                <label>Template</label>
+                <visible>1</visible>
+                <type>select</type>
+                <value>cms/widget/link/link_block.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>cms/widget/link/link_block.phtml</value>
+                        <label>CMS Page Link Block Template</label>
+                    </default>
+                    <link_inline translate="label">
+                        <value>cms/widget/link/link_inline.phtml</value>
+                        <label>CMS Page Link Inline Template</label>
+                    </link_inline>
+                </values>
+            </template>
+        </parameters>
+    </acms_page_link>
+    </widgets>

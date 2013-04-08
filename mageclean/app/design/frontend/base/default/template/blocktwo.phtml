@@ -1,0 +1,118 @@
+<?php
+
+
+$arrr = $this->getFeedArr();
+// $arrr = $this->getFeedArr()->getData();
+      $pos = 0;
+      foreach ($arrr as $value) {
+          $thumburl = $value['thumb_url'];
+          $title = $value['title'];
+          echo "<li class='{$pos} vidLink'>";          
+          echo "<img class='{$pos} vidLink' height='100' width='130' src='{$thumburl}'>";      
+          echo "{$title}</li>";     
+               // increment position
+                $pos++;    
+}
+$ar = array();
+array_push($ar, $arrr);
+$hrefJson = new Varien_Object($arrr);
+$hrefJson = $hrefJson->toJson();
+     
+      
+      echo "<script> var hrefJson = {$hrefJson}</script> ";
+?>
+<span id="playerSpan"></span>
+<div id="player"></div>
+ <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      // This is a protocol-relative URL as described here:
+      //     http://paulirish.com/2010/the-protocol-relative-url/
+      // If you're testing a local page accessed via a file:/// URL, please set tag.src to
+      //     "https://www.youtube.com/iframe_api" instead.
+      tag.src = "//www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      var pos = -1;
+      var linkClick;
+      function nextHref(){
+          pos = +pos; 
+          if(!linkClick){
+              if(pos === hrefJson.length-1){
+                 pos = 0;
+              } else {
+               pos += 1; 
+             }
+          }
+          linkClick = false;
+          var ret = hrefJson[pos]['vid_id'];
+          
+          return ret;
+      }
+      function onYouTubeIframeAPIReady() {
+          myOnYouTubeIframeAPIReady();
+      }
+      function myOnYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: nextHref(),
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+     //   alert('onPlayerReady');
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        //  alert(9);
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+            console.log(event.data);
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+         if (event.data == YT.PlayerState.ENDED) {
+            
+            alert('ended');
+            player.destroy();
+            onYouTubeIframeAPIReady();
+            
+        
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+      var classname;
+       
+      function vidLinkClick(){
+         var classnamearr;
+          player.destroy();
+          
+          classname = jQuery(event.target).attr("class");
+          classnamearr = classname.split(" ");
+          alert( classnamearr[0]);
+          alert(pos);
+          alert(pos = classnamearr[0]);
+          linkClick = true;
+          myOnYouTubeIframeAPIReady();
+      }
+     jQuery('.vidLink').click(vidLinkClick)
+    </script>
+    <embed src="http://localhost/bell.wav" autostart=true width=1 height=1 id="sound1" enablejavascript="true">
+   <script src="http://localhost/soundmanager2.js"></script>

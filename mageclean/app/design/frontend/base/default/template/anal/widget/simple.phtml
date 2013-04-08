@@ -1,0 +1,48 @@
+<?php 
+ $classString = $this->formatArgString ();
+ $eventType = $this->getEventType();
+ $dataHelper = $this->dataHelper(); // base helper
+ // $renderedEvents = array(); // string js from active helpers
+ $activeHelpers = $dataHelper->getActiveHelpers(); // array of helper rendering class's
+       
+// foreach ($activeHelpers as $activeHelper) {
+//            $array = array('event'=>'bla','label'=>'bla');
+//        $renderedEventStack[] = $activeHelper->renderStack();
+//        $renderedEvents[] = $activeHelper->renderEvent($array);       
+//        }
+        $renderedEvents = $this->renderEvents();
+        $renderedEventStack = $this->renderStacks();
+?>
+
+<script>
+// bind event listeners to elements
+<?php 
+
+ //   echo $eventStack;    
+?>
+document.observe("dom:loaded", function() {
+
+    $$(<?php echo $classString ?>).each(function(item){
+        item.observe('<?php echo $eventType; ?>', function(event){
+            <?php if($this->getLimit()==='yes'):?>
+            var element = Event.element(event);
+            if(!element.hasEvent){
+            element.hasEvent = true;  
+            <?php endif;?>
+            alert(1);
+            <?php foreach ($renderedEvents as $stringJs) {    
+                    echo $stringJs;
+            }?>  
+            <?php if($this->getLimit()):?>
+            }
+            <?php endif;?>
+        });        
+    });
+    
+    });
+
+
+
+</script>
+<span class="bla">bla</span>
+<span class="another">another</span>

@@ -1,0 +1,71 @@
+<?php
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+?>
+ <script type="text/javascript" src="http://www.clean.com/js/mgt_developertoolbar/test.js"></script>
+        <script type="text/javascript" src="http://www.clean.com/js/mgt_developertoolbar/jquery.timer.js"></script>
+
+        <form id="tabataForm">
+            <label>Round Time</label>
+            <select id="time" name="rounds">
+                <?php
+                for ($i = 0; $i < 300; $i++) {
+                    echo "<option value='{$i}'>{$i}</option>";
+                }
+                ?>
+            </select>
+            <label>Round Rest</label>
+            <select id="rest" name="rounds">
+                <?php
+                for ($i = 0; $i < 300; $i++) {
+                    echo "<option value='{$i}'>{$i}</option>";
+                }
+                ?>
+            </select>
+            <label>Circuits</label>
+            <select id="circuits" name="circuits">
+                <?php
+                for ($i = 0; $i < 300; $i++) {
+                    echo "<option value='{$i}'>{$i}</option>";
+                }
+                ?>
+            </select>
+            <label>break</label>
+            <select id="break" name="break">
+                <?php
+                for ($i = 0; $i < 300; $i++) {
+                    echo "<option value='{$i}'>{$i}</option>";
+                }
+                ?>
+            </select>
+            <div id="exerciseDiv">exercise div</div>
+            <a href="" id="form-start">start</a>
+            <a href="" id="form-pause">pause</a>
+
+            <a href="" id="form-reset">reset</a>
+            <a href="" id="form-next">skip</a>
+
+        </form>
+
+        <div id="display">
+            work for <span id="activeSpan"></span><br>
+            rest for <span id="restSpan"></span> <br>
+        </div>
+        <div id="display">
+          round --  <span id="thisRoundName"></span>
+
+        </div>
+        <div id="player">
+            <span id="activeSpan"></span>
+            <span id="restSpan"></span>
+        </div>
+
+<script>
+   
+jQuery(function(){
+    jQuery.fn.tabata(<?php echo $this->getJsonRoutine(); ?>)
+})
+</script>

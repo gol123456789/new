@@ -1,0 +1,8 @@
+<?php
+    $classString = $this->formatArgString ();
+    $classJsonArr = $this->getJsonClassArr();
+    $dataHelper = Mage::helper('myanal');
+    $renderedEvents = array(); // string js from active helpers
+    $activeHelpers = $dataHelper->getActiveHelpers(); // array of helper rendering class's
+
+?>

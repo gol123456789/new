@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <My_Anal>
+            <active>true</active>
+            <codePool>community</codePool>
+        </My_Anal>
+    </modules>
+</config>

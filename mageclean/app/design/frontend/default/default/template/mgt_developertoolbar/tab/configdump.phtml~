@@ -1,0 +1,15 @@
+<?php $loopLimit = $this->getCount(); ?>
+<?php ?>
+<div class="configDump">
+    <p> dumps</p>
+    <?php for ($index = 0; $index < $loopLimit; $index++) :?>
+    <?php $resultString = $this->_result[$index][1]?>
+        <?php $result = $this->_result[$index][0]?>
+
+         <li>
+             <p><?php echo $resultString ?><span class=""><?php echo '::'.'       '.$result ?></span></p>
+             
+         </li>
+    <?php endfor;?>
+    </div>
+

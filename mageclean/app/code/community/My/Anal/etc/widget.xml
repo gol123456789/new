@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<!--
+/**
+ *
+ */
+-->
+<widgets>
+    <simpleEvent type="myanal/widget_simple" translate="name description" module="myanal">
+        <name>a simple event</name>
+        <description>fire a simple analytics event on user interaction</description>
+        <is_email_compatible>1</is_email_compatible>
+        <parameters>
+            <class_name translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value></value>
+                <label>class name on dom element</label>
+                <type>text</type>
+            </class_name>
+            <limit translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value></value>
+                <label>repeating event</label>
+                <description>allow more than one of this event per page view</description>
+                <type>select</type>
+                <value>0</value>
+                <values>
+                    <default translate="label">
+                        <value>yes</value>
+                        <label>yes</label>
+                    </default>
+                    <list translate="label">
+                        <value>no</value>
+                        <label>no</label>
+                    </list>
+                </values>
+            </limit>
+            <event_type translate="label">
+                <required>1</required>
+                <description>user interaction you want to track</description>
+                <visible>1</visible>
+                <value></value>
+                <label>event type</label>
+                <type>select</type>
+                <value>click</value>
+                <values>
+                    <default translate="label">
+                        <value>click</value>
+                        <label>click</label>
+                    </default>
+                    <hover translate="label">
+                        <value>hover</value>
+                        <label>hover</label>
+                    </hover>
+                </values>
+            </event_type>
+            
+             <event_name translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value></value>
+                <label>event first name</label>
+                <type>text</type>
+                <value>click</value>
+                
+            </event_name>
+             <event_label translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value></value>
+                <label>event second name</label>
+                <type>text</type>
+                <value>click</value>
+                
+            </event_label>
+            <template>
+                <required>1</required>
+                <visible>0</visible>
+                <label>Template</label>
+                <type>select</type>
+                <value>simple.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>anal/widget/simple.phtml</value>
+                        <label>normal render</label>
+                    </default>
+                    <list translate="label">
+                        <value>anal/widget/simple.phtml</value>
+                        <label>dif node same template</label>
+                    </list>
+                </values>
+            </template>
+            <cache_lifetime translate="label description">
+                <label>Cache Lifetime (Seconds)</label>
+                <description>86400 by default, if not set. To refresh instantly, Clear the Blocks HTML Output Cache.</description>
+                <visible>1</visible>
+                <type>text</type>
+            </cache_lifetime>
+        </parameters>
+    </simpleEvent>
+    <funnel type="myanal/widget_funnel" translate="name description" module="myanal">
+        <name>conversion funnel</name>
+        <description>chain events on html elements in a funnel</description>
+        <is_email_compatible>1</is_email_compatible>
+        <parameters>
+            <class_name translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value></value>
+                <label>class's name on html elements</label>
+                <type>text</type>
+            </class_name>
+            <funnel_prefix translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <label>prefix for funnel</label>
+                <description></description>
+                <type>text</type>
+                <value>funnel</value>
+                
+            </funnel_prefix>
+            <event_type translate="label">
+                <required>1</required>
+                <description>user interaction you want to track</description>
+                <visible>1</visible>
+                <value></value>
+                <label>event type</label>
+                <type>select</type>
+                <value>click</value>
+                <values>
+                    <default translate="label">
+                        <value>click</value>
+                        <label>click</label>
+                    </default>
+                    <hover translate="label">
+                        <value>hover</value>
+                        <label>hover</label>
+                    </hover>
+                </values>
+            </event_type>
+             <event_name translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value></value>
+                <label>event name</label>
+                <description>we add the class name as a prefix here</description>
+                <type>text</type>
+                <value>click</value>
+                
+            </event_name>
+             <event_label translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value></value>
+                <label>event label</label>
+                <type>text</type>
+                
+                
+            </event_label>
+            <template>
+                <required>1</required>
+                <visible>0</visible>
+                <label>Template</label>
+                <type>select</type>
+                <value>anal/widget/funnel.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>anal/widget/funnel.phtml</value>
+                        <label>normal render</label>
+                    </default>
+                    <list translate="label">
+                        <value>anal/widget/funnel.phtml</value>
+                        <label>dif node same template</label>
+                    </list>
+                </values>
+            </template>
+            <cache_lifetime translate="label description">
+                <label>Cache Lifetime (Seconds)</label>
+                <description>86400 by default, if not set. To refresh instantly, Clear the Blocks HTML Output Cache.</description>
+                <visible>1</visible>
+                <type>text</type>
+            </cache_lifetime>
+        </parameters>
+    </funnel>
+    </widgets>

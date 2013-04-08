@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+
+    <modules>
+        <My_Mod>
+            <version>1.0</version>
+        </My_Mod>
+    </modules>
+
+    <global>
+        <resources>
+            <mymod_setup>
+                <setup>
+                    <module>My_Mod</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </mymod_setup>
+            <mymod_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </mymod_write>
+            <mymod_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </mymod_read>
+        </resources>
+        <blocks>
+            <mymod>
+                <class>My_Mod_Block</class>
+            </mymod>
+        </blocks>
+        <models>
+            <mymod>
+                <class>My_Mod_Model</class>
+                <resourceModel>mymod_resource</resourceModel>
+            </mymod>
+            <mymod_resource>
+                <class>My_Mod_Model_Resource</class>
+                <entities>
+                    <bla>
+                        <table>bla</table>
+                    </bla>
+                    <routine>
+                        <table>routine</table>
+                    </routine>
+                    <routine_exercise>
+                        <table>routine_exercise</table>
+                    </routine_exercise>
+                    <routine_vids>
+                        <table>routine_vids</table>
+                    </routine_vids>
+                    <exercise>
+                        <table>exercise</table>
+                    </exercise>
+                    <exercise_store>
+                        <table>exercise_store</table>
+                    </exercise_store>
+                    <exercise_category>
+                        <table>exercise_category</table>
+                    </exercise_category>
+                    <exercise_category_store>
+                        <table>exercise_category_store</table>
+                    </exercise_category_store>
+                    <exercise_vid>
+                        <table>exercise_vid</table>
+                    </exercise_vid>
+                    <exercise_test>
+                        <table>exercise_test</table>
+                    </exercise_test>
+                    <exercise_requirement>
+                        <table>exercise_requirement</table>
+                    </exercise_requirement>
+                    <exercise_requirement_categories>
+                        <table>exercise_requirement_categories</table>
+                    </exercise_requirement_categories>
+                    <exercise_suggestion>
+                        <table>exercise_suggestion</table>
+                    </exercise_suggestion>
+                </entities>
+            </mymod_resource>
+        </models>
+        <helpers>
+            <mymod>
+                <class>My_Mod_Helper</class>
+            </mymod>
+        </helpers>
+        <events>
+            <http_response_send_before>
+                <observers>
+                    <my_mod>
+                        <class>My_Mod_Model_Observer</class>
+                        <method>prepareClassInfo</method>
+                    </my_mod>
+                </observers>
+            </http_response_send_before>
+            <!-- Setting the response headers to control varnish -->
+			
+
+        </events>
+    </global>
+
+    <frontend>
+        <layout>
+            <updates>
+                <aoestatic>
+                    <file>aoestatic/aoestatic.xml</file>
+                </aoestatic>
+            </updates>
+        </layout>
+        <routers>
+            <mymod>
+                <use>standard</use>
+                <args>
+                    <module>My_Mod</module>
+                    <frontName>mod</frontName>
+                </args>
+            </mymod>
+        </routers>
+
+		
+
+    </frontend>
+    <adminhtml>
+        <events>
+            <http_response_send_before>
+                <observers>
+                    <my_mod>
+                        <class>My_Mod_Model_Observer</class>
+                        <method>prepareClassInfo</method>
+                    </my_mod>
+                </observers>
+            </http_response_send_before>
+            <!-- Setting the response headers to control varnish -->
+			
+
+        </events>
+        <layout>
+            <updates>
+                <blog module="My_Mod">
+                    <file>my_mod.xml</file>
+                </blog>
+            </updates>
+        </layout>
+    
+    </adminhtml>
+        
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <my_mod before="Mage_Adminhtml">My_Mod_Adminhtml</my_mod>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

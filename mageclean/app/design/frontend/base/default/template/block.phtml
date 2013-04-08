@@ -1,0 +1,258 @@
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+<?php
+      $usrfeedUrl = $this->getFeedUrl();
+      $playlistListFeed = $this->getFeed();
+      $arrr = $this->getFeedArr();
+      $yt = $this->getYoutube();
+      $arrr = $this->getFeedArr()->getData();
+      $pos = 0;
+      foreach ($arrr as $value) {
+          $thumburl = $value['thumbUrl'];
+          $title = $value['title'];
+          echo "<li class='{$pos} vidLink'>";          
+          echo "<img class='{$pos} vidLink' height='100' width='130' src='{$thumburl}'>";      
+          echo "{$title}</li>";     
+               // increment position
+                $pos++;    
+}
+       
+      
+   
+      $hrefJson = $this->getFeedJson();
+     
+      
+      echo "<script> var hrefJson = {$hrefJson}</script> ";
+      
+?>
+<span id="playerSpan"></span>
+<div id="player"></div>
+ <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      // This is a protocol-relative URL as described here:
+      //     http://paulirish.com/2010/the-protocol-relative-url/
+      // If you're testing a local page accessed via a file:/// URL, please set tag.src to
+      //     "https://www.youtube.com/iframe_api" instead.
+      tag.src = "//www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      var pos = -1;
+      var linkClick;
+      function nextHref(){
+          pos = +pos; 
+          if(!linkClick){
+              if(pos === hrefJson.length-1){
+                 pos = 0;
+              } else {
+               pos += 1; 
+             }
+          }
+          linkClick = false;
+          var ret = hrefJson[pos]['id'];
+          
+          return ret;
+      }
+      function onYouTubeIframeAPIReady() {
+          myOnYouTubeIframeAPIReady();
+      }
+      function myOnYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: nextHref(),
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+     //   alert('onPlayerReady');
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        //  alert(9);
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+            console.log(event.data);
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+         if (event.data == YT.PlayerState.ENDED) {
+            
+            alert('ended');
+            player.destroy();
+            onYouTubeIframeAPIReady();
+            
+        
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+      var classname;
+       
+      function vidLinkClick(){
+         var classnamearr;
+          player.destroy();
+          
+          classname = jQuery(event.target).attr("class");
+          classnamearr = classname.split(" ");
+          alert( classnamearr[0]);
+          alert(pos);
+          alert(pos = classnamearr[0]);
+          linkClick = true;
+          myOnYouTubeIframeAPIReady();
+      }
+     jQuery('.vidLink').click(vidLinkClick)
+    </script>
+    
+
+    <div>
+        <h3 class="add-to-list">
+          add this vid :)  
+        </h3>
+    </div>
+    
+    <div><h3 id="list">your list</h3>
+    <a id="saveList"> save list </a>
+    <form id="saveForm">
+        <label>name</label><input type ="text" class="input-text required-entry" name="name" />
+         <label>Round Time</label>
+            <select id="time" name="round_time">
+                <?php
+                for ($i = 0; $i < 300; $i++) {
+                    echo "<option value='{$i}'>{$i}</option>";
+                }
+                ?>
+            </select>
+            <label>Round Rest</label>
+            <select id="rest" name="round_rest">
+                <?php
+                for ($i = 0; $i < 300; $i++) {
+                    echo "<option value='{$i}'>{$i}</option>";
+                }
+                ?>
+            </select>
+            <label>Circuits</label>
+            <select id="circuits" name="circuits">
+                <?php
+                for ($i = 0; $i < 300; $i++) {
+                    echo "<option value='{$i}'>{$i}</option>";
+                }
+                ?>
+            </select>
+            <label>break</label>
+            <select id="break" name="circuit_rest">
+                <?php
+                for ($i = 0; $i < 300; $i++) {
+                    echo "<option value='{$i}'>{$i}</option>";
+                }
+                ?>
+            </select>
+    </form>
+    </div>
+     <script>
+//<![CDATA[
+var customForm = new VarienForm('saveForm');
+//]]>
+</script>
+    <script>
+        function grab() {
+           alert(1); 
+           var sel = '.'+pos;
+           var bla = jQuery(jQuery(sel)[0]).clone().appendTo('#list');
+           alert(bla);
+        };
+      jQuery('.add-to-list').click(grab);
+      
+    </script>
+    <script>
+  jQuery(function() {
+    jQuery( "#list" ).sortable();
+    jQuery( "#list" ).disableSelection();
+  });
+  var sendArr = {};
+  // sendArr is reset in resetSendOb
+  function addToSend(element) {      
+      
+      var arr = {};
+      var hrefPos = jQuery(this).attr("class").split(" ")[0];
+      arr.pos = hrefPos;
+      arr.id = hrefJson[hrefPos]['id'];
+      arr.thumbUrl = hrefJson[hrefPos]['thumbUrl'];
+      arr.title = hrefJson[hrefPos]['title'];
+      
+      sendArr.data.push(arr);
+  }
+  function formValidate() {     
+     return customForm.validator.validate();
+  }
+  function formToSend() {
+      sendArr.form = jQuery('#saveForm').serializeArray();
+  }
+  function prepareVidsData() {     
+      jQuery('#list').children().each(addToSend);
+  }
+  function resetSendOb() {
+       sendArr = {};
+       sendArr.data = [];      
+  }
+  function sendList() {
+    var form = formValidate();
+    if (form){
+      resetSendOb();
+      prepareVidsData();        
+      formToSend();
+      jQuery.ajax({
+  url: "http://www.clean.com/mod/index/save/",
+  data: sendArr,
+  type: 'post',
+  success: function(data) {
+    alert(data);
+  }
+});
+    }
+  }
+  jQuery('#saveList').click(sendList);
+  
+  var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+var unavailableDates = ["2012/03/26","2012/03/27","2012/04/05"]; // yyyy/MM/dd
+var unavailableDays = ["Saturday","Sunday"];
+var bla=[];
+function unavailable(date) {
+ bla.push(jQuery(this).clone(true));
+    console.log(bla);
+    ymd = date.getFullYear() + "/" + ("0"+(date.getMonth()+1)).slice(-2) + "/" + ("0"+date.getDate()).slice(-2);
+    day = new Date(ymd).getDay();console.log(this);
+    if (jQuery.inArray(ymd, unavailableDates) < 0 && jQuery.inArray(days[day], unavailableDays) < 0) {
+        return [true, "enabled", "Book Now"];
+    } else {
+        return [false,"disabled","Booked Out"];
+    }
+    
+   
+}
+
+jQuery('#iDate').datepicker({ beforeShowDay: unavailable });
+  
+  </script>
+ <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/redmond/jquery-ui.css" type="text/css" />
+<input id="iDate" />
+<p>Date: <input type="text" id="datepicker" /></p>
+<script>
+  jQuery(function() {
+    jQuery( "#datepicker" ).datepicker({ beforeShowDay: unavailable });
+  });
+  </script>

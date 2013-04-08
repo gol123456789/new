@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            
+        </reference>
+    </default>
+    <adminhtml_exercise_index>
+       <reference name="content">
+            <block type="mymod/adminhtml_exercise" name="comment" />
+        </reference>
+    </adminhtml_exercise_index>
+    <adminhtml_bla_index>
+       <reference name="content">
+            <block type="mymod/adminhtml_exercise" name="comment" />
+        </reference>
+    </adminhtml_bla_index>
+    <blog_admin_manage_blog_edit>
+        <update handle="editor" />
+    </blog_admin_manage_blog_edit>	
+    <blog_admin_manage_blog_new>
+        <update handle="editor" />
+    </blog_admin_manage_blog_new>		
+    <blog_admin_manage_comment_index>
+        <reference name="content">
+            <block type="blog/manage_comment" name="comment" />
+        </reference>
+    </blog_admin_manage_comment_index>
+    <blog_admin_manage_cat_index>
+        <reference name="content">
+            <block type="blog/manage_cat" name="cat" />
+        </reference>
+    </blog_admin_manage_cat_index>
+</layout>

@@ -1,0 +1,105 @@
+
+<?php
+$service = new Zend_Gdata_Calendar();
+$query = $service->newEventQuery();
+
+$query->setUser('gerardoloan@gmail.com');
+
+$query->setVisibility('public');
+$query->setProjection('full');
+$query->setStartMin(date('Y-n-j'));
+$query->setStartMax(date('Y-n-j', time() + (60*60 *24*8)));
+$query->setOrderby('starttime');
+
+try { $eventFeed = $service->getCalendarEventFeed($query); }
+catch (Zend_Gdata_App_Exception $e) { return; }
+
+foreach ($eventFeed as $event) 
+	echo $event; // do something real here
+/**
+ * Uncomment this if you haven't installed the Zend Framework inside your php include path
+ * replace YOUR_ZF_PATH for you Zend Framework path, the directory where your Zend directory resides
+ */
+//ini_set('include_path',ini_get('include_path').':YOUR_ZF_PATH:');
+
+/**
+ * Please define your Email and Password for Google Accounts access 
+ */
+define('YOUR_EMAIL_FOR_GOOGLE_ACCOUNTS','geardoloan');
+define('YOUR_PASS_FOR_GOOGLE_ACCOUNTS','fuckit2005');
+$email = YOUR_EMAIL_FOR_GOOGLE_ACCOUNTS;
+$passwd = YOUR_PASS_FOR_GOOGLE_ACCOUNTS;
+try {
+   $client = Zend_Gdata_ClientLogin::getHttpClient($email, $passwd, 'cl');
+} catch (Zend_Gdata_App_CaptchaRequiredException $cre) {
+    echo 'URL of CAPTCHA image: ' . $cre->getCaptchaUrl() . "\n";
+    echo 'Token ID: ' . $cre->getCaptchaToken() . "\n";
+} catch (Zend_Gdata_App_AuthException $ae) {
+   echo 'Problem authenticating: ' . $ae->exception() . "\n";
+}
+ 
+$cal = new Zend_Gdata_Calendar($client);
+//require_once 'Zend/Gdata.php';
+//require_once 'Zend/Loader.php';
+
+//Let's enable autoload, ZF handles this nicely 
+//Zend_Loader::registerAutoload();
+$myEmail = YOUR_EMAIL_FOR_GOOGLE_ACCOUNTS;
+$myPass  = YOUR_PASS_FOR_GOOGLE_ACCOUNTS;
+
+// Parameters for ClientAuth authentication
+$service = Zend_Gdata_Calendar::AUTH_SERVICE_NAME;
+$client = Zend_Gdata_ClientLogin::getHttpClient($myEmail, $myPass, $service);
+        
+ //  $service = new Zend_Gdata_Calendar();     
+/**
+* Lets create the Service instance, to interact with Google Data Api
+*/
+$service = new Zend_Gdata_Calendar($client);
+
+
+$calendarName = 'My Calendar ZF Example';
+$useCalendarFeed = FALSE;
+
+try {
+        // Let's get the calendar list from Google calendar API
+        $listFeed= $service->getCalendarListFeed();
+} catch (Zend_Gdata_App_Exception $e) {
+        echo "Error: " . $e->getMessage();
+}
+
+/**
+ * Need to run through all the array to search for our calendar name
+ * @todo this is ugly to do, need to inspect for a better way to do this
+*/
+foreach ($listFeed as $calendar) {
+        if($calendar->title == $calendarName) 
+                $useCalendarFeed = $calendar->content->src;
+}
+
+/**
+* If we have not found the calendar we want to use, 
+* we need to create a new one
+*/
+if(FALSE === $useCalendarFeed)
+{
+        $appCal = $service->newListEntry();
+        $appCal->title = $service->newTitle($calendarName);
+        $own_cal = "http://www.google.com/calendar/feeds/default/owncalendars/full";
+        $service->insertEvent($appCal, $own_cal); 
+        
+        /**
+        * Need to grab the Google Calendar feed again, with the newly inserted calendar
+        * We'll need the refreshed feed in order to get the newly added calendar ID in order
+        * to add the event into the created calendar 
+        */
+        try {
+                $listFeed= $service->getCalendarListFeed();
+        } catch (Zend_Gdata_App_Exception $e) {
+                echo "Error: " . $e->getMessage();
+        }
+                        
+}
+
+
+?>

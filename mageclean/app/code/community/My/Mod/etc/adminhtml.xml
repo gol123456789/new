@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>    
+    <menu>
+        <exercise module="mymod">
+            <title>Exercises</title>
+            <sort_order>71</sort_order>
+            <children>
+               
+                <exercise module="mymod" translate="title">
+                    <title>Add bla</title>
+                    <sort_order>0</sort_order>
+                    <action>adminhtml/exercise/index</action>
+                </exercise>
+                <abla module="mymod" translate="title">
+                    <title>Add bla</title>
+                    <sort_order>0</sort_order>
+                    <action>adminhtml/bla/index</action>
+                </abla>
+               
+                <settings translate="title" module="blog">
+                    <title>Settings</title>
+                    <action>adminhtml/system_config/edit/section/blog</action>
+                    <sort_order>40</sort_order>
+                </settings>
+            </children>
+        </exercise>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <blog>
+                        <title>Blog</title>
+                        <sort_order>70</sort_order>
+                        <children>
+                             <bla module="mymod" translate="title">
+                    <title>Add bla</title>
+                    <sort_order>0</sort_order>
+                    
+                </bla>
+                <abla module="mymod" translate="title">
+                    <title>Add abla</title>
+                    <sort_order>0</sort_order>
+                    
+                </abla>
+                            <posts>
+                                <title>Manage Posts</title>
+                                <sort_order>0</sort_order>
+                            </posts>
+                            <comment>
+                                <title>Manage Comments</title>
+                                <sort_order>1</sort_order>
+                            </comment>
+                            <cat>
+                                <title>Manage Categories</title>
+                                <sort_order>2</sort_order>
+                            </cat>
+                        </children>
+                    </blog>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <blog>
+                                        <title>aheadWorks Blog Section</title>
+                                    </blog>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>   
+</config>
